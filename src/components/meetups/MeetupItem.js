@@ -1,17 +1,27 @@
-import { useFetch } from "./../../util-hooks/useFetch";
 import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  createFavorite,
+  deleteFavorite,
+} from "../../store/slices/favoriteSlice";
 
-export default function MeetupItem() {
-  const { data } = useFetch({
-    url: "/data.json",
+export default function MeetupItem({ item = {} }) {
+  const dispatch = useDispatch();
+  const { favorites } = useSelector((state) => {
+    return state;
   });
+  const isFav = favorites.data.some((fav) => fav.id === item.id);
+  const addFavorite = (item) => {
+    dispatch(createFavorite(item));
+  };
 
-  if (!data) return <p>Loading...</p>;
-  let [item] = data;
+  const removeFavorite = (itemId) => {
+    dispatch(deleteFavorite(itemId));
+  };
 
   return (
-    <li className={classes.item} data-test='meet-up-item'>
+    <li className={classes.item} data-test="meet-up-item">
       <Card>
         <div className={classes.image}>
           <img src={item.image} alt={item.title} />
@@ -22,7 +32,13 @@ export default function MeetupItem() {
           <p>{item.description}</p>
         </div>
         <div className={classes.actions}>
-          <button>Add to favorites</button>
+          {isFav ? (
+            <button onClick={() => removeFavorite(item.id)}>
+              Remove from favorites
+            </button>
+          ) : (
+            <button onClick={() => addFavorite(item)}>Add to favorites</button>
+          )}
         </div>
       </Card>
     </li>

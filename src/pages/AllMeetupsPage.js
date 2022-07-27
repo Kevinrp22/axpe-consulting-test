@@ -1,17 +1,22 @@
-import MeetupItem from "../components/meetups/MeetupItem";
-import classes from "./../components/meetups/MeetupList.module.css";
-
-
+import MeetupList from "../components/meetups/MeetupList";
+import { useSelector } from "react-redux";
 export default function AllMeetupsPage() {
+  const { data } = useSelector((state) => {
+    return state.meetups;
+  });
+
+  if (!data) return <p>Loading...</p>;
+
   return (
     <section>
       <h1>All Meetups</h1>
-      <ul className={classes.list}>
-        <MeetupItem />
-        <MeetupItem />
-        <MeetupItem />
-        <MeetupItem />
-      </ul>
+      {data?.length <= 0 ? (
+        <>
+          <p>you don't have meetups</p>
+        </>
+      ) : (
+        <MeetupList data={data} />
+      )}
     </section>
   );
 }

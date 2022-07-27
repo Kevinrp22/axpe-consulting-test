@@ -1,8 +1,10 @@
-
 import { Link } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
+import { useSelector } from "react-redux";
 
 export default function MainNavigation() {
+  const { data } = useSelector((state) => state.favorites);
+
   return (
     <header className={classes.header} data-test="navigation-header">
       <div className={classes.logo}>React Meetups</div>
@@ -18,7 +20,7 @@ export default function MainNavigation() {
           <li>
             <Link to="/favorites">
               My Favorites
-              <span className={classes.badge}>{0}</span>
+              <span className={classes.badge}>{data?.length || 0}</span>
             </Link>
           </li>
         </ul>
