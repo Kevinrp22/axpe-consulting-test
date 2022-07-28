@@ -1,11 +1,12 @@
 import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
 import { useSelector, useDispatch } from "react-redux";
+
+import { deleteMeetup } from "../../store/actions/meetupActions";
 import {
   createFavorite,
   deleteFavorite,
-} from "../../store/slices/favoriteSlice";
-import { deleteMeetup } from "../../store/actions/meetupActions";
+} from "../../store/actions/favoriteActions";
 import { useNavigate } from "react-router-dom";
 
 export default function MeetupItem({ item }) {

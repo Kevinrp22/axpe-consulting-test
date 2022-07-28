@@ -3,12 +3,12 @@ import MainNavigation from "./MainNavigation";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchAllFavorites } from "../../store/slices/favoriteSlice";
 import { getMeetups } from "../../store/actions/meetupActions";
+import { getFavorites } from "../../store/actions/favoriteActions";
 export default function Layout() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchAllFavorites());
+    dispatch(getFavorites());
     dispatch(getMeetups());
   }, [dispatch]);
 

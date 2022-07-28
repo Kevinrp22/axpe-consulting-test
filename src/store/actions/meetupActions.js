@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { URL } from "../../constants/URL";
-import { deleteFavorite, updateFavorite } from "../slices/favoriteSlice";
+import { deleteFavorite, updateFavorite } from "../actions/favoriteActions";
 
 export const getMeetups = createAsyncThunk(
   "meetup/get",
