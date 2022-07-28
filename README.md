@@ -52,15 +52,16 @@ class Service {
 
 Se ha usado json-server para simular un servidor api por lo que tendremos que ejecutarla junto con el front
 
-- ```npm run server``` para ejecutar el servidor api
-- ```npm run start``` para ejecutar la aplicación
+1. ```npm install``` para instalación de dependencias
+2. ```npm run server``` para ejecutar el servidor api
+3. ```npm run start``` para ejecutar la aplicación
 
 #### Librerías utilizadas:
 - Redux ToolKit
 - React Router Dom
 - Axios
 
-#### Datos importantes
+#### Datos importantes:
 - Se ha cumplido todos los requisitos exepto la parte de los tests, hubieron dificultades a la hora de mockear redux y el uso de enzyme. 
 - Además de poder crear meetups, se puede eliminar y editar. 
 - Como no existe una base de datos con relaciones, al editar o eliminar se ha hecho métodos para que sus funciones se hagan en ambas "tablas" del fichero .json. 
