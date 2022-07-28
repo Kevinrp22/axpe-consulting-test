@@ -7,16 +7,16 @@ import FavoritesPage from "./pages/Favorites";
 import NewMeetupsPage from "./pages/NewMeetupPage";
 import UpdateMeetupPage from "./pages/UpdateMeetupPage";
 
-import Layout from "./components/layout/Layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import App from "./App";
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<App />}>
           <Route index element={<AllMeetupsPage />} />
           <Route path="/add-new-meetup" element={<NewMeetupsPage />} />
           <Route path="/update-meetup/:id" element={<UpdateMeetupPage />} />
