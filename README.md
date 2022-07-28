@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+## Ejercicio 1
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```js
+//PSEUDOCÓDIGO
+class RegistederedUser {
+  constructor(services = []) {
+    this.services = services;
+  }
 
-## Available Scripts
+  getTotal() {
+    let total = 0;
+    this.services.forEach((service) => total += service.getPrice());
+    return total;
+  }
+}
 
-In the project directory, you can run:
+class Service {
+  MultimediaContent multimediaContent;  
 
-### `npm start`
+  getFullPrice(){
+    /* premiumPrice es una método de MultimediaContent que retorna un método por ejemplo
+    getAdditionalFee() de la clase PremiumContent (heredada) */
+    let premiumPrice = this.multimediaContent.premiumPrice()
+    let price = 0
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    if (premiumPrice) price += premiumPrice
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    return this.getServicePrice()
+  }
 
-### `npm test`
+  getServicePrice(){
+    // Cada hijo heredado establecerá un precio
+  }
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+/*  El principal error a largo plazo es que al tener
+  muchos condicionales, el código puede volverse inmantible, que pasa si añadimos
+  un nuevo servicio? volvemos a hacer un nuevo else if/if? No.
 
-### `npm run build`
+  Lo correcto aquí desde mi punto de vista sería aplicar la herencia con polimorfismo. En la 
+  clase Service tendría que haber un método que te devuelva el precio del contenido multimedia
+  que el hijo heredado habrá establecido en su clase.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  Aislamos las funcionalidades en sus respectivas funciones,
+  getTotal() de RegisteredUser simplemente llama al método del servicio sin saber como se hace.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  Ahora podemos añadir nuevos servicios sin que nuestro código dependa de ser modificado.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+*/
+```
+## Ejercicio 2
 
-### `npm run eject`
+Se ha usado json-server para simular un servidor api por lo que tendremos que ejecutarla junto con el front
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- ```npm run server``` para ejecutar el servidor api
+- ```npm run start``` para ejecutar la aplicación
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Librerías utilizadas:
+- Redux ToolKit
+- React Router Dom
+- Axios
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### Datos importantes
+- Se ha cumplido todos los requisitos exepto la parte de los tests, hubieron dificultades a la hora de mockear redux y el uso de enzyme. 
+- Además de poder crear meetups, se puede eliminar y editar. 
+- Como no existe una base de datos con relaciones, al editar o eliminar se ha hecho métodos para que sus funciones se hagan en ambas "tablas" del fichero .json. 
+Evidentemente en un caso real, esto no sería necesario ya que se podría configurar en la base de datos si al editar o eliminar cambie en todos los relacionados
