@@ -38,8 +38,12 @@
   font-weight: bold;
 }
 
-.actions button:hover,
-.actions button:active {
+.actions button:hover:enabled,
+.actions button:active:enabled {
   background-color: #a50e48;
   border-color: #a50e48;
+}
+
+.actions button:disabled {
+  opacity: 0.5;
 }

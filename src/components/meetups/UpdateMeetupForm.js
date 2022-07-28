@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { createMeetup } from "../../store/actions/meetupActions";
-import { useNavigate } from "react-router-dom";
+import { updateMeetup } from "../../store/actions/meetupActions";
 import MeetupForm from "./MeetupForm";
 
-export default function NewMeetupForm() {
+export default function UpdateMeetupForm({ item }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { loading } = useSelector((state) => {
     return state.meetups;
   });
@@ -18,14 +16,18 @@ export default function NewMeetupForm() {
       address: form.address.value,
       description: form.description.value,
     };
-    dispatch(createMeetup(formData))
+    dispatch(updateMeetup({ id: item.id, formData }))
       .unwrap()
       .then(() => {
-        alert("Meetup has created");
-        navigate(`/`);
+        alert("Meetup has updated");
       })
       .catch(() => alert("Something wrong!"));
   }
-
-  return <MeetupForm submitHandler={submitHandler} loading={loading} />;
+  return (
+    <MeetupForm
+      submitHandler={submitHandler}
+      loading={loading}
+      defaultValues={item}
+    />
+  );
 }

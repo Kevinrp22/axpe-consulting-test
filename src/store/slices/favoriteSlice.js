@@ -13,11 +13,17 @@ export const favoriteSlice = createSlice({
     setFavoriteList: (state, action) => {
       state.data = action.payload;
     },
+    editFavorite: (state, action) => {
+      console.log();
+      state.data = state.data.map((item) =>
+        item.id === action.payload.id ? action.payload : item
+      );
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addFavorite, removeFavorite, setFavoriteList } =
+export const { addFavorite, removeFavorite, setFavoriteList, editFavorite } =
   favoriteSlice.actions;
 
 export default favoriteSlice.reducer;
@@ -43,7 +49,9 @@ export const createFavorite = (item) => (dispatch) => {
     .then((data) => {
       dispatch(addFavorite(data));
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      throw error;
+    });
 };
 
 export const deleteFavorite = (itemId) => (dispatch) => {
@@ -56,3 +64,22 @@ export const deleteFavorite = (itemId) => (dispatch) => {
 
   dispatch(removeFavorite(itemId));
 };
+
+export const updateFavorite =
+  ({ id, formData }) =>
+  (dispatch) => {
+    fetch(`${URL}/favorites/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(editFavorite(data));
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };

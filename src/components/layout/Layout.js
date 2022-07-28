@@ -4,12 +4,12 @@ import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAllFavorites } from "../../store/slices/favoriteSlice";
-import { fetchAllMeetups } from "../../store/slices/MeetupsSlice";
+import { getMeetups } from "../../store/actions/meetupActions";
 export default function Layout() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllFavorites());
-    dispatch(fetchAllMeetups());
+    dispatch(getMeetups());
   }, [dispatch]);
 
   return (
